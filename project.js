@@ -18,8 +18,8 @@ eventListeners();
 function eventListeners(){
     form.addEventListener("submit", addFilm);
     document.addEventListener("DOMContentLoaded", function(){
-        let films = storage.getFilmsFromStorage();
-        ui.loadAllFilms(films);
+        let films = Storage.getFilmsFromStorage();
+        UI.loadAllFilms(films);
     });
     cardbody.addEventListener("click", deleteFilm);
     clear.addEventListener("click", clearAllFilms)
@@ -33,32 +33,32 @@ function addFilm(e){
 
     if(title === "" || director === "" || url === ""){
         //Error
-        ui.displayMessages("Fill out all the field...","danger")
+        UI.displayMessages("Fill out all the field...","danger")
     }
     else {
         const newFilm = new Film(title,director,url);
 
-        ui.addFilmToUI(newFilm); // Adding Film to UI
-        storage.addFilmToStorage(newFilm);
+        UI.addFilmToUI(newFilm); // Adding Film to UI
+        Storage.addFilmToStorage(newFilm);
 
-        ui.displayMessages("Film is successfully added...👍", "success") 
+        UI.displayMessages("Film is successfully added...👍", "success") 
     }
-ui.clearInputs(titleElement,urlElement,directorElement);
+UI.clearInputs(titleElement,urlElement,directorElement);
 e.preventDefault();
 }
 
 function deleteFilm(e){
     if(e.target.id === "delete-film") {
-        ui.deleteFilmFromUI(e.target);
-        storage.deleteFilmFromStorage(e.target.parentElement.previousElementSibling.previousElementSibling.textContent);
+        UI.deleteFilmFromUI(e.target);
+        Storage.deleteFilmFromStorage(e.target.parentElement.previousElementSibling.previousElementSibling.textContent);
 
-        ui.displayMessages("It's successfully Deleted", "success");
+        UI.displayMessages("It's successfully Deleted", "success");
     }
 }
 
 function clearAllFilms() {
     if(confirm("are you sure")){
-    ui.clearAllFilmsFromUI();
-    storage.clearAllFilmsFromStorage();
+    UI.clearAllFilmsFromUI();
+    Storage.clearAllFilmsFromStorage();
     }
 }
